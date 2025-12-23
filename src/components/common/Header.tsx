@@ -8,7 +8,7 @@ const Header = () => {
               href="/"
               className="text-white transition-colors duration-200 hover:opacity-50"
             >
-              Polícia Judiciária Civil de Mato Grosso
+              Find Hope
             </a>
           </h1>
         </div>

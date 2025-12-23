@@ -75,7 +75,7 @@ docker build -t find-hope-hub .
 
 # Execução do container
 docker run -p 3000:3000 find-hope-hub
-Use o código com cuidado.
+
 
 Acesse: http://localhost:3000
 📁 Estrutura de Pastas
