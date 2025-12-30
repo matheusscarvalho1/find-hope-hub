@@ -1,12 +1,9 @@
 # 🚀 Find Hope Hub
 
-**Find Hope Hub** é uma plataforma de utilidade pública desenvolvida para auxiliar na localização de pessoas desaparecidas. O projeto centraliza informações, facilita o envio de novas pistas e oferece uma interface moderna e intuitiva para conectar famílias e cidadãos a dados públicos em tempo real.
+**Find Hope Hub** é uma plataforma de utilidade pública projetada para centralizar informações e auxiliar na localização de pessoas desaparecidas. O projeto oferece uma interface intuitiva e performática, conectando cidadãos a dados públicos em tempo real para acelerar o envio de pistas e registros.
 
 
-
-## 🛠️ Stack Tecnológica (2025)
-
-A aplicação utiliza as tecnologias mais recentes do ecossistema **React**, focando em performance, tipagem rigorosa e manutenibilidade:
+## 🛠️ Stack Tecnológica
 
 - **React 19**: Aproveitando as novas capacidades de concorrência e otimização de renderização.
 - **Vite 7**: Ambiente de build ultra-rápido para uma experiência de desenvolvimento superior.
@@ -34,6 +31,11 @@ Para evitar falhas de rede e erros de servidor (HTTP 500) com arquivos volumosos
 - Limite de **2 arquivos por formulário**.
 - Filtro por extensões específicas (JPEG, PNG, PDF, DOCX).
 - Feedback imediato via **Sonner (Toasts)** para garantir que o usuário saiba exatamente o status de sua submissão.
+
+### 🧩 Integridade de Dados
+- Para o campo "Data do Ocorrido", utilizei um Date Picker nativo validado via Zod:
+- Precisão Temporal: Elimina erros de formatação manuais.
+- Confiabilidade: Garante que o payload enviado à API esteja 100% em conformidade com o schema esperado.
 
 ---
 
@@ -65,19 +67,23 @@ npm install
 
 # Inicie em modo de desenvolvimento
 npm run dev
-Use o código com cuidado.
+
+```
 
 Acesse: http://localhost:5173
+
+
 2. Docker (Produção)
-bash
+```bash
 # Build da imagem
 docker build -t find-hope-hub .
 
 # Execução do container
 docker run -p 3000:3000 find-hope-hub
-
+```
 
 Acesse: http://localhost:3000
+```
 📁 Estrutura de Pastas
 bash
 src/
@@ -88,14 +94,17 @@ src/
 ├─ pages/      # Views e Páginas da Aplicação
 ├─ tests/      # Suite de testes Vitest
 └─ App.tsx     # Configuração de Rotas e Providers
-Use o código com cuidado.
+```
+
 
 🔧 Comandos Disponíveis
+```
 npm run dev: Servidor de desenvolvimento.
 npm run build: Build de produção otimizado.
 npm run preview: Visualiza o build de produção localmente.
 npm run test: Execução de testes unitários.
 npm run lint: Verificação de padrões de código via ESLint.
+```
 
 ---
 
@@ -103,6 +112,6 @@ npm run lint: Verificação de padrões de código via ESLint.
 **Matheus de Souza Carvalho**
 - 📧 [matheusdocarvalho@gmail.com](mailto:matheusdocarvalho@gmail.com)
 - 📱 +55 65 99207-9383
-- 🔗 [GitHub](github.com)
+- 🔗 [GitHub](https://github.com/matheusscarvalho1)
 
 ---
