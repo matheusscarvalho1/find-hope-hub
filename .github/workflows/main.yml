@@ -46,6 +46,7 @@ jobs:
     # Garante que o deploy só rode se o job 'check' (testes/lint) passar
     needs: check
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Deploy to Production (Render)
