@@ -194,7 +194,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    Promise.all([fetchData(), fetchEstatisticalData()]);
+    Promise.allSettled([fetchData(), fetchEstatisticalData()]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
