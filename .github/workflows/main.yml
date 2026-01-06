@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Baixa o código (Obrigatório usar 'uses')
+      # 1. Baixa o código, para ter acesso aos arquivos do nosso repositório
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -28,11 +28,11 @@ jobs:
           node-version: 20
           cache: 'pnpm'
 
-      # 4. Instala as dependências listadas no seu package.json
+      # 4. Instala as dependências listadas no package.json
       - name: Install dependencies
         run: pnpm install
 
-      # 5. Executa os scripts que você criou
+      # 5. Executa os scripts criados
       - name: Run ESLint
         run: pnpm run eslint:check
 
