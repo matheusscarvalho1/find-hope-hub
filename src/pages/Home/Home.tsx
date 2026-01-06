@@ -181,15 +181,12 @@ const Home = () => {
         const msg = error.response?.data?.message || error.message;
         console.error("Erro na requisição:", msg);
         setError(msg);
-        // toast.error(msg);
       } else if (error instanceof Error) {
         console.error("Erro na requisição:", error.message);
         setError(error.message);
-        // toast.error(error.message);
       } else {
         console.error("Erro desconhecido:", error);
         setError("Erro desconhecido");
-        // toast.error("Erro desconhecido");
       }
     } finally {
       setLoading(false);
@@ -198,6 +195,8 @@ const Home = () => {
 
   useEffect(() => {
     Promise.all([fetchData(), fetchEstatisticalData()]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) return <Loading />;

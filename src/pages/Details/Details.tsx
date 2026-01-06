@@ -17,21 +17,21 @@ const Details = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPessoaDetails = async () => {
-    setLoading(true);
-    try {
-      const response = await api.get<PersonDTO>(`/pessoas/${id}`);
-      setData(response.data);
-    } catch (error) {
-      const message = handleError(error);
-      setError(message);
-
-      console.error("Detalhe técnico do erro:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
   useEffect(() => {
+    const fetchPessoaDetails = async () => {
+      setLoading(true);
+      try {
+        const response = await api.get<PersonDTO>(`/pessoas/${id}`);
+        setData(response.data);
+      } catch (error) {
+        const message = handleError(error);
+        setError(message);
+
+        console.error("Detalhe técnico do erro:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchPessoaDetails();
   }, [id]);
 

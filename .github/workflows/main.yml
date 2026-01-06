@@ -1,0 +1,25 @@
+# Arquivo que define uma github action
+name: Deploy
+
+on:
+  push:
+    - main
+    - develop
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Da acesso ao código (Action GitHub)
+      - name: Checkout code
+        run: actions/checkout@v2
+
+      - name: ESLint
+        run: pnpm run eslint:check
+
+      - name: Prettier
+        run: pnpm run prettier:check
+      
+      - name: Test
+        run: pnpm run test

@@ -11,7 +11,6 @@ import type {
   PersonDTO,
 } from "../../../interface/interface";
 import { api } from "../../../lib/api";
-import { handleError } from "../../../lib/utils";
 import InternalServerError from "../../Error/internal-server-error";
 import NotFound from "../../Error/not-found-error";
 import DialogDetailsCard from "./DialogDetailsCard";
@@ -19,6 +18,13 @@ import DialogDetailsCard from "./DialogDetailsCard";
 interface DetailsProps {
   data: PersonDTO;
 }
+
+const sortOcorrencias = (data: OcorrenciaInfoDTO[]) => {
+  return [...data].sort(
+    (DateA, DateB) =>
+      new Date(DateB.data).getTime() - new Date(DateA.data).getTime(),
+  );
+};
 
 const DetailsCard = ({ data }: DetailsProps) => {
   const [ocorrenciaResource, setOcorrenciaResource] = useState<
@@ -39,40 +45,29 @@ const DetailsCard = ({ data }: DetailsProps) => {
     navigate("/");
   };
 
-  const sortOcorrencias = (data: OcorrenciaInfoDTO[]) => {
-    return [...data].sort(
-      (DateA, DateB) =>
-        new Date(DateB.data).getTime() - new Date(DateA.data).getTime(),
-    );
-  };
-
   const fetchData = async (ocorrenciaId: number) => {
     setLoading(true);
     try {
       const response = await api.get(
         `/ocorrencias/informacoes-desaparecido?ocorrenciaId=${ocorrenciaId}`,
       );
-
       const sortedData = sortOcorrencias(response.data);
-
       setOcorrenciaResource(sortedData);
     } catch (error) {
-      const message = handleError(error);
-      setError(message);
-
-      console.error("Detalhe técnico do erro:", error);
+      setError("Erro de Requisição da API");
+      console.error("Erro:", error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (data.ultimaOcorrencia) {
+    if (data.ultimaOcorrencia?.ocoId) {
       fetchData(data.ultimaOcorrencia.ocoId);
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [data.ultimaOcorrencia?.ocoId]);
 
   const handleRefreshOcorrencia = () => {
     if (data.ultimaOcorrencia?.ocoId) {
@@ -95,7 +90,7 @@ const DetailsCard = ({ data }: DetailsProps) => {
         data-testid="details-card"
         className="flex min-h-screen flex-col bg-gray-50"
       >
-        <div className="flex flex-grow justify-center px-4 py-6">
+        <div className="flex grow justify-center px-4 py-6">
           <div className="container rounded-lg bg-white p-6 shadow">
             <h1 className="mb-6 text-2xl font-bold text-gray-800">
               <strong>{data.nome}</strong>
@@ -164,7 +159,7 @@ const DetailsCard = ({ data }: DetailsProps) => {
                                   href={anexo.trim()}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-block rounded-full bg-blue-100 px-2 py-1 text-xs font-medium break-words text-blue-800 transition-colors hover:bg-blue-200"
+                                  className="wrap-break-words inline-block rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 transition-colors hover:bg-blue-200"
                                 >
                                   Anexo {idx + 1}
                                 </a>
@@ -174,7 +169,9 @@ const DetailsCard = ({ data }: DetailsProps) => {
                         </div>
                         <p className="text-gray-700">
                           <strong>Informação:</strong>{" "}
-                          <span className="break-words">{item.informacao}</span>
+                          <span className="wrap-break-words">
+                            {item.informacao}
+                          </span>
                         </p>
                       </div>
                     ))

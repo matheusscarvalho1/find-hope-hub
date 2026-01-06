@@ -24,8 +24,10 @@ export default tseslint.config([
       "simple-import-sort": simpleImportSort,
     },
     rules: {
+      // Força a organização automática dos imports e exports
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
+      // Desativa o aviso de erro para variáveis criadas e não utilizadas
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
