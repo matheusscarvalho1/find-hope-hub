@@ -61,11 +61,11 @@ describe("Testes da aplicação no geral", () => {
     });
 
     apiGetMock.mockResolvedValueOnce({
-    data: { 
-      totalDesaparecidos: 10, 
-      totalLocalizados: 5 
-    },
-  });
+      data: {
+        totalDesaparecidos: 10,
+        totalLocalizados: 5,
+      },
+    });
     render(
       <MemoryRouter initialEntries={["/"]}>
         <Suspense fallback={<Loading />}>
