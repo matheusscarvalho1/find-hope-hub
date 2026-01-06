@@ -13,6 +13,7 @@
 - **React Router v7**: Gerenciamento de rotas com suporte a *Lazy Loading* e *Error Boundaries*.
 - **Vitest & Testing Library**: Suite de testes focada em qualidade de software.
 - **Zod & React Hook Form**: Validação de dados robusta e gerenciamento de formulários.
+- **pnpm v9**: Gerenciamento de pacotes ultra-rápido e eficiente.
 
 ---
 
@@ -26,7 +27,7 @@ Para o campo de "Data do Ocorrido", optei pela implementação de um **Date Pick
 - **Precisão**: Elimina inconsistências de formato comuns em máscaras de texto.
 - **Confiabilidade**: Os dados são validados via **Zod** antes do envio, garantindo integridade total ao consumir a API.
 
-### 🛡️ Resiliência no Upload de Arquivos
+### 🛡️ Resiliência no Upload de Arquivos no Client-Side
 Para evitar falhas de rede e erros de servidor (HTTP 500) com arquivos volumosos, implementei travas de segurança no *Client-Side*:
 - Limite de **2 arquivos por formulário**.
 - Filtro por extensões específicas (JPEG, PNG, PDF, DOCX).
@@ -46,6 +47,33 @@ Para evitar falhas de rede e erros de servidor (HTTP 500) com arquivos volumosos
 - **Envio de Informações**: Formulário validado para registro de novas pistas e anexos.
 - **Acessibilidade & Responsividade**: Interface adaptada para qualquer tamanho de tela (Mobile, Tablet e Desktop).
 - **Tratamento de Erros**: Páginas dedicadas para estados de erro (404 e 500) e estados de carregamento (*Skeleton Loaders*).
+
+---
+
+## 🏗️ Pipeline de CI/CD (GitHub Actions)
+
+A plataforma utiliza uma esteira de automação completa para garantir que o código em produção seja estável e confiável.
+
+### 🧪 Integração Contínua (CI)
+A cada *push* nas branch `main`, o **GitHub Actions** valida o projeto:
+1. **Linter (ESLint 9)**: Verifica boas práticas e regras de React Hooks.
+2. **Formatter (Prettier)**: Garante a padronização do código e a ordem correta das classes **Tailwind CSS v4** via plugin oficial.
+3. **Testes (Vitest)**:Executa a suíte de 12 testes automatizados. Utilizamos **Mocks de API** (`vi.spyOn`) para simular o backend, permitindo que os testes rodem de forma isolada e veloz no ambiente de CI, sem depender de serviços externos.
+
+### 🚀 Entrega Contínua (CD)
+- **Deploy Automatizado**: O deploy é disparado para o **Render** via Deploy Hooks.
+- **Segurança**: O deploy só ocorre se o job de verificação (CI) passar com sucesso.
+- **Secrets & Environments**: As URLs de deploy são protegidas por **GitHub Secrets** vinculados a um ambiente de `production`, impedindo a exposição de chaves privadas no repositório.
+
+---
+
+## 🐳 Dockerização
+
+A aplicação está totalmente containerizada para facilitar a escalabilidade e garantir paridade entre ambientes.
+
+- **Dockerfile Otimizado**: Utiliza o gerenciador **pnpm v9** e cache de camadas para builds acelerados, reduzindo drasticamente o tempo de instalação de dependências.
+- **Servidor de Produção**: Configurado com a biblioteca `serve` em modo SPA (`-s`), garantindo que rotas dinâmicas do **React Router v7** funcionem sem erros de "tela branca" ou 404 dentro do container.
+- **Ambiente**: Baseado em **Node 22-alpine** para máxima leveza, segurança e compatibilidade com as APIs mais recentes do Node.js.
 
 ---
 
