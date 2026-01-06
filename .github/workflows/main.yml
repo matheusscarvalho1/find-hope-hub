@@ -1,26 +1,43 @@
-# Arquivo que define uma github action
 name: Deploy
 
 on:
   push:
     branches:
-    - main
-    - develop
+      - main
+      - develop
 
 jobs:
   check:
     runs-on: ubuntu-latest
 
     steps:
-      # Da acesso ao código (Action GitHub)
+      # 1. Baixa o código (Obrigatório usar 'uses')
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: ESLint
-        uses: pnpm run eslint:check
+      # 2. Instala o pnpm (Necessário para rodar pnpm run)
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
 
-      - name: Prettier
-        uses: pnpm run prettier:check
+      # 3. Configura o Node.js v20 (Compatível com React 19)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      # 4. Instala as dependências listadas no seu package.json
+      - name: Install dependencies
+        run: pnpm install
+
+      # 5. Executa os scripts que você criou
+      - name: Run ESLint
+        run: pnpm run eslint:check
+
+      - name: Run Prettier
+        run: pnpm run prettier:check
       
-      - name: Test
-        uses: pnpm run test
+      - name: Run Test
+        run: pnpm run test
