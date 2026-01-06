@@ -62,7 +62,7 @@ A cada *push* nas branch `main`, o **GitHub Actions** valida o projeto:
 
 ### 🚀 Entrega Contínua (CD)
 - **Deploy Automatizado**: O deploy é disparado para o **Render** via Deploy Hooks.
-- **Segurança**: O deploy só ocorre se o job de verificação (CI) passar com sucesso.
+- **Segurança**: O deploy só ocorre se o job de verificação (CI) passar com sucesso (Esse citado acima).
 - **Secrets & Environments**: As URLs de deploy são protegidas por **GitHub Secrets** vinculados a um ambiente de `production`, impedindo a exposição de chaves privadas no repositório.
 
 ---
