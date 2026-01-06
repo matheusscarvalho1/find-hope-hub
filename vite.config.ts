@@ -4,6 +4,7 @@ import { defineConfig, type UserConfig } from "vite";
 import type { InlineConfig as VitestConfig } from "vitest";
 
 export default defineConfig({
+  base: '/',
   plugins: [react(), tailwindcss()],
   build: {
     chunkSizeWarningLimit: 1000,
