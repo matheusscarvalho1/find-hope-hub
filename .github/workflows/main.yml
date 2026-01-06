@@ -14,13 +14,13 @@ jobs:
     steps:
       # Da acesso ao código (Action GitHub)
       - name: Checkout code
-        run: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: ESLint
-        run: pnpm run eslint:check
+        uses: pnpm run eslint:check
 
       - name: Prettier
-        run: pnpm run prettier:check
+        uses: pnpm run prettier:check
       
       - name: Test
-        run: pnpm run test
+        uses: pnpm run test
