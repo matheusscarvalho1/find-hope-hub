@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - develop
+     
 
 jobs:
   check:
@@ -41,3 +41,14 @@ jobs:
       
       - name: Run Test
         run: pnpm run test
+
+  deploy:
+    # Garante que o deploy só rode se o job 'check' (testes/lint) passar
+    needs: check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Production (Render)
+        run: |
+          curl -f ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+
